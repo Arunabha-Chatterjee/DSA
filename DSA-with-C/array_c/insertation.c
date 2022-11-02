@@ -17,6 +17,8 @@ int main()
         printf("%d ",array[i]);
     }
     printf("\n");
+    
+    //insertion
 
     printf("\nEnter the element : ");
     scanf("%d",&new_element);
