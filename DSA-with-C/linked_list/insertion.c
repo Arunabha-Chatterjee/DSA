@@ -87,19 +87,27 @@ void insert_at_any()
     {
         temp=temp->next;
     }
+    if (pos==1) //for insert a first position
+    {
+        newnode->next=temp;
+        start=newnode; 
+    }
+    if (pos>1) //insert after first position
+    {
     newnode->next=temp->next;
     temp->next=newnode;
+    printf("\nNodes after inset : ");
+    }
     printf("\nEnter data :");
     scanf("%d",&newnode->data);
-    printf("\nNodes after inset : ");
     display();
 }
 
 int main()
 {
     add();
-    insert_at_end();
-    insert_at_start();
+    //insert_at_end();
+    //insert_at_start();
     insert_at_any();
     return 0;
 }
