@@ -8,7 +8,7 @@ struct node
 struct node *start=NULL;
 struct node *temp=NULL;
 
-void display()
+void display()      // print nodes
 {
     temp=start;
     while (temp!=NULL)
@@ -19,9 +19,9 @@ void display()
     
 }
 
-void add()
+void add()      // Intilize nodes
 {
-    printf("\n--------------Intilize nodes--------------");
+    printf("\n------------Intilize nodes------------");
     struct node *newnode;
     char choice='y';    
     while (choice=='y' || choice=='Y')
@@ -46,63 +46,7 @@ void add()
     display();
 }
 
-
-void insert_at_start()
-{
-    struct node *newnode;
-    newnode=(struct node*)malloc(sizeof(struct node));
-    printf("\nEnter data : ");
-    scanf("%d",&newnode->data);
-    newnode->next=start;
-    start=newnode;
-    printf("\nNodes after inset at start : ");
-    display();
-}
-
-void insert_at_end()
-{
-    struct node *newnode;
-    newnode=(struct node*)malloc(sizeof(struct node));
-    temp = start;
-        while (temp->next!= NULL)
-    {
-        temp = temp->next;
-    }
-    printf("\nEnter data : ");
-    scanf("%d",&newnode->data);
-    temp->next=newnode;
-    newnode->next=NULL;
-    printf("\nNodes after inset at end : ");
-    display();
-}
-
-void insert_at_any()
-{
-    struct node *newnode;
-    int pos, i;
-    temp=start;
-    newnode=(struct node*)malloc(sizeof(struct node));
-    printf("\nEnter the position : ");
-    scanf("%d",&pos);
-    if (pos==1)
-    {
-        insert_at_start();
-        return;
-    }
-    
-    for (i=1; i<pos-1; i++)
-    {
-        temp=temp->next;
-    }
-    newnode->next=temp->next;
-    temp->next=newnode;
-    printf("\nEnter data : ");
-    scanf("%d",&newnode->data);
-    printf("\nNodes after inset : ");
-    display();
-}
-
-int count_node()
+int count_node()        // count
 {
     temp=start;
     int count=0;
@@ -115,26 +59,70 @@ int count_node()
    return count; 
 }
 
-int main()
+void delete_from_first()        //delete_from_first
 {
+    temp=start;
+    start=temp->next;
+    free(temp);
+    printf("\nNodes (after delete from first) : ");
+    display();
+} 
 
+void delete_from_end()      // delete_from_end
+{
+    temp=start;
+   while (temp->next->next!=0)
+   {
+    temp=temp->next;
+   }
+   free(temp->next);
+   temp->next=NULL;
+   printf("\nNodes (after delete from end) : ");
+   display();
+}
+
+void delete_from_any()      //delete from any position
+{
+    struct node *nextnode;
+    int pos, i;
+    temp=start;
+    printf("\nEnter the position : ");
+    scanf("%d",&pos);
+    if (pos==1)
+    {
+        delete_from_first();
+        return;
+    }
+    
+    for ( i = 1; i < pos-1; i++)
+    {
+        temp=temp->next;
+    }
+    nextnode=temp->next->next;
+    free(temp->next);
+    temp->next=nextnode;
+    printf("\nAfter delete : ");
+    display();
+}
+void main()
+{
     int choice;
     add();
     printf("\n\nChoose any operation from below : ");
-    printf("\n1.Insert at first.\n2.Insert at end.\n3.Insert at any position.\n4.Count");
+    printf("\n1.Delete from first.\n2.Delete from end.\n3.Delete from any position.\n4.Count");
     printf("\nWhich operation want to perform : ");
     scanf("%d",&choice);
     switch (choice)
     {
     case 1:
-        insert_at_start();
+        delete_from_first();
         break;
     
     case 2:
-        insert_at_end();
+        delete_from_end();
         break;
     case 3:
-        insert_at_any();
+        delete_from_any();
         break;
     case 4:
         count_node();
@@ -142,5 +130,4 @@ int main()
         printf("\nEnter correct choice : ");
 
     }
-    return 0;
 }
