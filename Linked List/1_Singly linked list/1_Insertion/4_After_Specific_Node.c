@@ -6,7 +6,7 @@ struct node
     struct node *next;
 };
 struct node *head = NULL, *temp_node;
-int size;
+int size=0;
 
 void display_list()
 {

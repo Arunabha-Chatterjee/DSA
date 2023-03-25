@@ -6,7 +6,6 @@ struct node
     struct node *next;
 };
 struct node *head = NULL, *temp_node;
-int size;
 
 void display_list()
 {
@@ -27,26 +26,33 @@ void display_list()
 
 void intilize_list()
 {
-    struct node *node1, *node2, *node3;
-    node1=(struct node *)malloc(sizeof(struct node));
-    node2=(struct node *)malloc(sizeof(struct node));
-    node3=(struct node *)malloc(sizeof(struct node));
-
-    head=node1;
-    node1->data=10;
-    node1->next=node2;
-    size++;
-
-    node2->data=20;
-    node2->next=node3;
-    size++;
-
-    node3->data=30;
-    node3->next=NULL;
-    size++;
-    printf("\nTotal nodes : ");
-    display_list();
-    printf("\nSize of the list : %d",size);
+    int count;
+    printf("\nEnter how many node want to insert : ");
+    scanf("%d", &count);
+    if (count == 0)
+    {
+        printf("\nThe list is empty.");
+    }
+    else
+    {
+        temp_node=head;
+        for (int i = 0; i < count; i++)
+        {
+            struct node *newnode=(struct node *)malloc(sizeof(struct node));
+            printf("\nEnter data : ");
+            scanf("%d",&newnode->data);
+            if (head == 0)
+            {
+                head=newnode;
+            }
+            else
+            {
+                temp_node->next=newnode;
+                temp_node=newnode;
+            }
+            newnode->next=0;    
+        }
+    }
 }
 
 void insert_at_beginning()
@@ -57,14 +63,13 @@ void insert_at_beginning()
     scanf("%d", &newnode->data);
     newnode->next = head;
     head = newnode;
-    size++;
+    // size++;
     printf("\nNodes after insert at beginning : ");
     display_list();
-    printf("\nSize of the list : %d\n",size);
+    // printf("\nSize of the list : %d\n",size);
 }
 
 void main()
 {
     intilize_list();
-    insert_at_beginning();
 }
