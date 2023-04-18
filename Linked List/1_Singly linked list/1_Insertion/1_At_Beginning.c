@@ -5,71 +5,57 @@ struct node
     int data;
     struct node *next;
 };
-struct node *head = NULL, *temp_node;
-
-void display_list()
+struct node *head = NULL, *temp, *tail;
+void display()
 {
+    temp = head;
     if (head == NULL)
     {
-        printf("The list is empty.\n");
+        printf("The list is empty.");
     }
     else
     {
-        temp_node = head;
-        while (temp_node != NULL)
+        printf("\nUpdated list : ");
+        while (temp != NULL)
         {
-            printf("%d  ", temp_node->data);
-            temp_node = temp_node->next;
+            printf("%d  ", temp->data);
+            temp = temp->next;
         }
     }
 }
 
-void intilize_list()
+void add(int data)
 {
-    int count;
-    printf("\nEnter how many node want to insert : ");
-    scanf("%d", &count);
-    if (count == 0)
+    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = data;
+    if (head == NULL)
     {
-        printf("\nThe list is empty.");
+        head = newnode;
     }
     else
     {
-        temp_node=head;
-        for (int i = 0; i < count; i++)
-        {
-            struct node *newnode=(struct node *)malloc(sizeof(struct node));
-            printf("\nEnter data : ");
-            scanf("%d",&newnode->data);
-            if (head == 0)
-            {
-                head=newnode;
-            }
-            else
-            {
-                temp_node->next=newnode;
-                temp_node=newnode;
-            }
-            newnode->next=0;    
-        }
+        tail->next = newnode;
     }
+    newnode->next = NULL;
+    tail = newnode;
 }
 
-void insert_at_beginning()
+void insert_at_beginning(int data)
 {
     struct node *newnode;
     newnode = (struct node *)malloc(sizeof(struct node));
-    printf("\nEnter data : ");
-    scanf("%d", &newnode->data);
+    newnode->data=data;
     newnode->next = head;
     head = newnode;
-    // size++;
-    printf("\nNodes after insert at beginning : ");
-    display_list();
-    // printf("\nSize of the list : %d\n",size);
+    printf("\n----Insertion at Beginning complete---");
 }
 
 void main()
 {
-    intilize_list();
+
+    display();
+    insert_at_beginning(50);
+    insert_at_beginning(70);
+    insert_at_beginning(80);
+    display();
 }

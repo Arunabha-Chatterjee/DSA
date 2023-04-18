@@ -4,8 +4,9 @@ struct node
 {
     int data;
     struct node *next;
+    struct node *prev;
 };
-struct node *head = NULL, *temp, *tail;
+struct node *head = NULL, *temp, *tail=NULL;
 void display()
 {
     temp = head;
@@ -23,6 +24,7 @@ void display()
         }
     }
 }
+
 void add(int data)
 {
     struct node *newnode = (struct node *)malloc(sizeof(struct node));
@@ -36,36 +38,22 @@ void add(int data)
         tail->next = newnode;
     }
     newnode->next = NULL;
+    newnode->prev=tail;
     tail = newnode;
-}
 
-void delete_from_end()
-{
-    struct node *previous_node;
-    if (head==NULL)
-    {
-        printf("\nThe list is empty");
-    }
-    else
-    {
-        temp=head;
-        while (temp->next!=NULL)
-        {
-            previous_node=temp;
-            temp=temp->next;
-        }
-        free(temp);
-        previous_node->next=NULL;
-
-       printf("\n----Deletion from end complete---");
-    }
 }
-void main()
+void insert_at_beginning(int data)
 {
-    add(1);
-    add(2);
-    add(3);
-    display();
-    delete_from_end();
-    display();
+    struct node* newnode=(struct node *)malloc(sizeof(struct node));
+    newnode->next=head;
+    head=newnode;
+    newnode->prev=NULL;
+    newnode->data=data;
+    printf("\nAfter insert at beginning : ");
+    display_list();
+}
+int main()
+{
+    intilize_list(20);
+    insert_at_beginning();
 }

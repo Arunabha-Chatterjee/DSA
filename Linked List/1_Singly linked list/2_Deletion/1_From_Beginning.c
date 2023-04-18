@@ -5,72 +5,63 @@ struct node
     int data;
     struct node *next;
 };
-struct node *head = NULL, *temp_node;
-int size;
-
-void display_list()
+struct node *head = NULL, *temp, *tail;
+void display()
 {
+    temp = head;
     if (head == NULL)
     {
-        printf("The list is empty.\n");
+        printf("The list is empty.");
     }
     else
     {
-        temp_node = head;
-        while (temp_node != NULL)
+        printf("\nUpdated list : ");
+        while (temp != NULL)
         {
-            printf("%d  ", temp_node->data);
-            temp_node = temp_node->next;
+            printf("%d  ", temp->data);
+            temp = temp->next;
         }
     }
 }
 
-void intilize_list()
+void add(int data)
 {
-    struct node *node1, *node2, *node3;
-    node1=(struct node *)malloc(sizeof(struct node));
-    node2=(struct node *)malloc(sizeof(struct node));
-    node3=(struct node *)malloc(sizeof(struct node));
-
-    head=node1;
-    node1->data=10;
-    node1->next=node2;
-    size++;
-
-    node2->data=20;
-    node2->next=node3;
-    size++;
-
-    node3->data=30;
-    node3->next=NULL;
-    size++;
-    printf("\nTotal nodes : ");
-    display_list();
-    printf("\nSize of the list : %d",size);
+    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = data;
+    if (head == NULL)
+    {
+        head = newnode;
+    }
+    else
+    {
+        tail->next = newnode;
+    }
+    newnode->next = NULL;
+    tail = newnode;
 }
 
 void delete_from_beginning()
 {
     if (head==NULL)
     {
-        printf("\nNo nodes there in the list.");
+        printf("\nNo nodes are there in the list.\n");
     }
     else
     {
-        temp_node=head;
-        temp_node=temp_node->next;
+        temp=head;
+        temp=temp->next;
         free(head);
-        head=temp_node;
-        size--;
-
-        printf("\nNodes after delete from end : ");
-        display_list();
-        printf("\nSize of the list : %d\n",size);
+        head=temp;
     }
+    printf("\n----Deletion from Beginning complete---");
 }
 
 void main()
 {
-    intilize_list();
+    add(1);
+    add(2);
+    add(3);
+    display();
     delete_from_beginning();
+    display();
 }

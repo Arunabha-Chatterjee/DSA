@@ -39,30 +39,12 @@ void add(int data)
     tail=newnode;
 }
 
-void insert_at_end(int data)
+int main()
 {
-    temp = head;
-    struct node *newnode = (struct node *)malloc(sizeof(struct node));
-    newnode->data=data;
-    if (head == NULL)
-    {
-        head = newnode;
-    }
-    else
-    {
-        while (temp->next != NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = newnode;
-    }
-    newnode->next = NULL;
-    printf("\n----Insertion at End Complete---");
-}
-void main() 
-{
-    insert_at_end(50);
-    insert_at_end(5);
-    insert_at_end(500);
     display();
+    add(2);
+    add(3);
+    add(4);
+    display();
+    return 0;
 }

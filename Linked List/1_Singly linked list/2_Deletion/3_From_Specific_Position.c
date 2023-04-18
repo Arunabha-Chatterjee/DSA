@@ -5,52 +5,45 @@ struct node
     int data;
     struct node *next;
 };
-struct node *head = NULL, *temp_node;
-int size;
-
-void display_list()
+struct node *head = NULL, *temp, *tail;
+int size=0;
+void display()
 {
+    temp = head;
     if (head == NULL)
     {
-        printf("The list is empty.\n");
+        printf("The list is empty.");
     }
     else
     {
-        temp_node = head;
-        while (temp_node != NULL)
+        printf("\nUpdated list : ");
+        while (temp != NULL)
         {
-            printf("%d  ", temp_node->data);
-            temp_node = temp_node->next;
+            printf("%d  ", temp->data);
+            temp = temp->next;
         }
     }
 }
-
-void intilize_list()
+void add(int data)
 {
-    struct node *node1, *node2, *node3;
-    node1=(struct node *)malloc(sizeof(struct node));
-    node2=(struct node *)malloc(sizeof(struct node));
-    node3=(struct node *)malloc(sizeof(struct node));
-
-    head=node1;
-    node1->data=10;
-    node1->next=node2;
+    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = data;
+    if (head == NULL)
+    {
+        head = newnode;
+    }
+    else
+    {
+        tail->next = newnode;
+    }
+    newnode->next = NULL;
+    tail = newnode;
     size++;
-
-    node2->data=20;
-    node2->next=node3;
-    size++;
-
-    node3->data=30;
-    node3->next=NULL;
-    size++;
-    printf("\nTotal nodes : ");
-    display_list();
-    printf("\nSize of the list : %d",size);
 }
 
 void delete_from_specific_position()
 {
+    printf("\nSize of the list : %d", size);
     if (head==NULL)
     {
         printf("\nThe list is empty.");
@@ -58,7 +51,7 @@ void delete_from_specific_position()
 
     else
     {
-        temp_node=head;
+        temp=head;
         struct node *prev_node;
         int position;
         printf("\nEnter position : ");
@@ -69,29 +62,30 @@ void delete_from_specific_position()
         }
         else if (position==1)
         {
-            temp_node=temp_node->next;
+            temp=temp->next;
             free(head);
-            head=temp_node;
+            head=temp;
         }
         else
         {
             for (int i = 0; i<position-1; i++)
             {
-                prev_node=temp_node;
-                temp_node=temp_node->next;
+                prev_node=temp;
+                temp=temp->next;
             }
-            prev_node->next=temp_node->next;
-            free(temp_node);
+            prev_node->next=temp->next;
+            free(temp);
             size--;
-            printf("\nNodes after delete : ");
-            display_list();
-            printf("\nSize of the list : %d\n",size);
+            printf("\n----Deletion from specific position complete---");    
         }
     }
     
 }
 void main()
 {
-    intilize_list();
+    add(1);
+    add(2);
+    add(3);
     delete_from_specific_position();
+    display();
 }

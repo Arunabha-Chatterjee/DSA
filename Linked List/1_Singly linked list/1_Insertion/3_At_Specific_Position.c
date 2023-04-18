@@ -5,53 +5,46 @@ struct node
     int data;
     struct node *next;
 };
-struct node *head = NULL, *temp_node;
-int size;
-
-void display_list()
+struct node *head = NULL, *temp, *tail;
+int size = 0;
+void display()
 {
+    temp = head;
     if (head == NULL)
     {
-        printf("The list is empty.\n");
+        printf("The list is empty.");
     }
     else
     {
-        temp_node = head;
-        while (temp_node != NULL)
+        printf("\nUpdated list : ");
+        while (temp != NULL)
         {
-            printf("%d  ", temp_node->data);
-            temp_node = temp_node->next;
+            printf("%d  ", temp->data);
+            temp = temp->next;
         }
     }
 }
 
-void intilize_list()
+void add(int data)
 {
-    struct node *node1, *node2, *node3;
-    node1=(struct node *)malloc(sizeof(struct node));
-    node2=(struct node *)malloc(sizeof(struct node));
-    node3=(struct node *)malloc(sizeof(struct node));
-
-    head=node1;
-    node1->data=10;
-    node1->next=node2;
+    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = data;
+    if (head == NULL)
+    {
+        head = newnode;
+    }
+    else
+    {
+        tail->next = newnode;
+    }
+    newnode->next = NULL;
+    tail = newnode;
     size++;
-
-    node2->data=20;
-    node2->next=node3;
-    size++;
-
-    node3->data=30;
-    node3->next=NULL;
-    size++;
-
-    printf("\nTotal nodes : ");
-    display_list();
-    printf("\nSize of the list : %d",size);
 }
 void insert_at_specific_position()
 {
-    temp_node = head;
+    printf("\nSize of the list : %d", size);
+    temp = head;
     struct node *newnode;
     newnode = (struct node *)malloc(sizeof(struct node));
     int position;
@@ -67,6 +60,8 @@ void insert_at_specific_position()
     }
     else
     {
+        printf("\nEnter data : ");
+        scanf("%d", &newnode->data);
         if (position == 1)
         {
             newnode->next = head;
@@ -76,22 +71,21 @@ void insert_at_specific_position()
         {
             for (int i = 0; i < position - 2; i++)
             {
-                temp_node = temp_node->next;
+                temp = temp->next;
             }
-            newnode->next = temp_node->next;
-            temp_node->next = newnode;
+            newnode->next = temp->next;
+            temp->next = newnode;
         }
-        printf("\nEnter data : ");
-        scanf("%d", &newnode->data);
         size++;
+        printf("\n----Insertion at specific position complete---");
     }
-    printf("\nNodes after insert specific position : ");
-    display_list();
-    printf("\nSize of the list : %d\n",size);
 }
 
 void main()
 {
-    intilize_list();
+    add(10);
+    add(20);
+    add(30);
     insert_at_specific_position();
+    display();
 }
