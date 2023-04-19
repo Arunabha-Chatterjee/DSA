@@ -54,8 +54,10 @@ void main()
 {
 
     display();
-    insert_at_beginning(50);
-    insert_at_beginning(70);
-    insert_at_beginning(80);
+    add(1);
+    add(2);
+    add(3);
+    add(4);
+    insert_at_beginning(5);
     display();
 }
